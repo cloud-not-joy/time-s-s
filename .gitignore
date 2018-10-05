@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/src/node_modules
 /storage/*.key
 /config/wechat.php
 /vendor
