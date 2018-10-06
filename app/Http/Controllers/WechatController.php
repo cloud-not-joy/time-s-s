@@ -61,7 +61,7 @@ class WechatController extends Controller
        }else{
            $users = $res;
        }
-       session('user_id',$user->user_id);
+        session(['user_id'=>$users->user_id]);
        return ['code'=>count($users->toArray()),'data'=>$users->toArray()];
     }
 

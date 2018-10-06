@@ -91,7 +91,7 @@ class ActiveController extends Controller
     }
 
     public function helpPerson(){
-        $user_id = session('user_id');
+        dd(session('user_id'));
         $where = ['help_to_user_id'=>$user_id];
         HelpLogs::getAllByWhere($where);
         $res = HelpLogs::getFriendsByWhere($where);
