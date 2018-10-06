@@ -11,17 +11,16 @@ namespace App\Http\Controllers;
 
 use App\Models\HelpLogs;
 use App\Models\Users;
+use EasyWeChat\Support\Log;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ActiveController extends Controller
 {
-    public function join(Request $request){
-        $user_id = $request->get('user_id');
-        if(empty($user_id)){
-            return ['code'=>0,'msg'=>'参数不能为空'];
-        }
+    public function join(){
+        $user_id =  session('user_id');//$request->get('user_id');
+        Log::info("user_id:%d",$user_id);
         $user = Users::getOneByWhere(['user_id'=>$user_id]);
         if(empty($user)){
             return ['code'=>0,'msg'=>'用户不存在'];
@@ -52,7 +51,7 @@ class ActiveController extends Controller
 
     public function help(Request $request){
         $to_user_id = $request->get('to_user_id');
-        $from_user_id = $request->get('from_user_id');
+        $from_user_id = session('user_id');
         if(empty($to_user_id) || empty($from_user_id) || $to_user_id == $from_user_id){
             return ['code'=>0,'msg'=>'参数不能为空'];
         }
@@ -91,11 +90,8 @@ class ActiveController extends Controller
 
     }
 
-    public function helpPerson(Request $request){
-        $user_id = $request->get('user_id');
-        if(empty($user_id)) {
-            return ['code'=>0,'msg'=>'参数不能为空'];
-        }
+    public function helpPerson(){
+        $user_id = session('user_id');
         $where = ['help_to_user_id'=>$user_id];
         HelpLogs::getAllByWhere($where);
         $res = HelpLogs::getFriendsByWhere($where);
