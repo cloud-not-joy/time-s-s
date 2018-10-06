@@ -66,7 +66,7 @@ class WechatController extends Controller
     }
 
     public function ticket(Application $wechat,Request $request){
-        $app = app('wechat.official_account');
+        $app = EasyWeChat::officialAccount();
         return ['data'=>$app->jssdk->buildConfig(array('onMenuShareTimeline', 'onMenuShareAppMessage'), true)];
     }
 }
