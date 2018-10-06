@@ -27,7 +27,7 @@ export default {
 }
 .rule-ul {
   color: #666666;
-  font-size: 24px;
+  // font-size: 24px;
   li {
     margin-top: 12px;
   }

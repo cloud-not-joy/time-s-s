@@ -21,8 +21,8 @@ function makePost (url) {
   }
 }
 
-const userInfo = makeGet('/api/userInfo')
-const userJoin = makePost('/api/userJoin')
+const userInfo = makeGet('/api/user')
+const userJoin = makePost('/api/join')
 
 export default {
   userInfo,

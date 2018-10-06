@@ -8,6 +8,7 @@
 
 <script>
 import store from '@/store/index.js'
+import api from '@/util/api.js'
 export default {
   name: 'JoinBar',
   data () {
@@ -17,8 +18,11 @@ export default {
   },
   methods: {
     joinHandle () {
-      this.store.isShowJoinedAlert = true
-      this.store.joinStatus = 1
+      api.userJoin().then((data) => {
+        console.log(data.data)
+        this.store.isShowJoinedAlert = true
+        this.store.joinStatus = 1
+      })
     },
     shareHandle () {
       this.store.isShowInviteTips = true

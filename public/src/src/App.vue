@@ -23,6 +23,7 @@ import JoinedAlert from '@/components/JoinedAlert.vue'
 import InviteTip from '@/components/InviteTip.vue'
 import JoinMember from '@/components/JoinMember.vue'
 import store from '@/store/index.js'
+import api from '@/util/api.js'
 export default {
   name: 'App',
   data () {
@@ -41,6 +42,11 @@ export default {
     JoinedAlert,
     InviteTip,
     JoinMember
+  },
+  mounted () {
+    api.userInfo().then((data) => {
+      console.log(data.data)
+    })
   },
   methods: {
     closeInviteTip () {

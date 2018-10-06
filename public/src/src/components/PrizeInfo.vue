@@ -26,7 +26,7 @@ export default {
 .PrizeInfo {
   ul {
     li {
-      font-size: 24px;
+      // font-size: 24px;
       color: #666666;
       margin-top: 12px;
     }
