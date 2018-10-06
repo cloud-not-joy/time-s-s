@@ -42,5 +42,13 @@ class Users extends Eloquent\Model
         return  self::whereIn('user_id',$user_id_arr)->select(self::$select)->get();
     }
 
+    public static function getAllByOrderNum($select){
+        return  self::select($select)->orderBy('help_num','desc')->get();
+    }
+
+    public static function sumByHelpNum(){
+        return  self::sum('help_num');
+    }
+
 
 }

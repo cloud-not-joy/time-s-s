@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 
 class ActiveController extends Controller
 {
+    const MAX_JOIN_PERSON = 0;
     public function userInfo(){
         $user_id =  session('user_id');
         $user = Users::getOneByWhere(['user_id'=>$user_id]);
@@ -31,25 +32,35 @@ class ActiveController extends Controller
     public function join(){
         $user_id =  session('user_id');//$request->get('user_id');
         $user = Users::getOneByWhere(['user_id'=>$user_id]);
-        if(empty($user)){
-            return ['code'=>0,'msg'=>'用户不存在'];
-        }
-        if(empty($user)) {
-            return ['code'=>0, 'msg'=>'openid获取失败'];
-        }
-        if($user->is_join) {
-            return ['code'=>1, 'msg'=>'已经参与活动'];
-        }
+//        if(empty($user)){
+//            return ['code'=>0,'msg'=>'用户不存在'];
+//        }
+//        if(empty($user)) {
+//            return ['code'=>0, 'msg'=>'openid获取失败'];
+//        }
+//        if($user->is_join) {
+//            return ['code'=>1, 'msg'=>'已经参与活动'];
+//        }
         $user->is_join = 1;//参与
         $join_num = Activity::getOne();
+
         DB::beginTransaction();
         try {
             $join_num->activity_join_num += 1;
             if ($user->save() && $join_num->save()) {
-                if(  $join_num->activity_join_num == 400){
-                    //触发开奖 后台执行
-                }
                 DB::commit();
+
+                if(  $join_num->activity_join_num >= self::MAX_JOIN_PERSON ){
+                    //触发开奖 后台执行
+                    $root_path = base_path();
+                    $command = sprintf("php %s/artisan activity:run >> /dev/null 2&1",$root_path);
+                    exec($command,$output);
+                    Log::info("exec output %s",$output);
+                    dd($command);
+
+                    exec($command);
+                }
+
                 return ['code' => 1, 'msg' => '成功参与活动'];
             } else {
                 DB::rollback();
@@ -138,15 +149,6 @@ class ActiveController extends Controller
            $data = ['activity_open_prize_time'=>$res->activity_open_prize_time];
            return ['code'=>1,'data'=>$data, 'activity_status'=>0];
        }
-
-    }
-
-    /**
-     * 定时或者满400人则开奖
-     */
-    public function timedAward(){
-        $select=['activity_open_prize_time','activity_status','activity_win_user_id'];
-        $res = Activity::getOne($select);
 
     }
 
