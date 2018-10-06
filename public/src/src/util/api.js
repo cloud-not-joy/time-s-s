@@ -21,7 +21,7 @@ function makePost (url) {
   }
 }
 
-const userInfo = makeGet('/api/user')
+const userInfo = makeGet('/api/user_info')
 const userJoin = makePost('/api/join')
 const userShare = makeGet('/api/ticket')
 

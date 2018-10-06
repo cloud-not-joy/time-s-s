@@ -45,6 +45,11 @@ export default {
   },
   mounted () {
     api.userInfo().then((data) => {
+      const code = data.data.code
+      if (code !== 1) {
+        window.location.href = 'http://time.mimicpark.tech/api/user'
+        return
+      }
       data = data.data.data
       this.store.joinStatus = Number(data.is_join)
       this.store.inviteCount = Number(data.help_num)
