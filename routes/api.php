@@ -25,8 +25,8 @@ Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
 
 });
 Route::group(['middleware' => ['web']], function () {
-    Route::any('/join', 'ActiveController@join');
-    Route::any('/join_users', 'ActiveController@joinUsers');
-    Route::any('/help', 'ActiveController@help');
-    Route::any('/help_person', 'ActiveController@helpPerson');
+    Route::post('/join', 'ActiveController@join');
+    Route::post('/join_users', 'ActiveController@joinUsers');
+    Route::post('/help', 'ActiveController@help');
+    Route::post('/help_person', 'ActiveController@helpPerson');
 });
