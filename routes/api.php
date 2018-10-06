@@ -21,11 +21,10 @@ Route::any('/demo', 'WechatController@demo');
 
 Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
     Route::get('/user', 'WechatController@user');
-    Route::any('/join', 'ActiveController@join');
     Route::get('/ticket', 'WechatController@ticket');
 
 });
-
+Route::any('/join', 'ActiveController@join');
 Route::any('/join_users', 'ActiveController@joinUsers');
 Route::any('/help', 'ActiveController@help');
 Route::any('/help_person', 'ActiveController@helpPerson');

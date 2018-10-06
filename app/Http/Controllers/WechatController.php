@@ -49,7 +49,7 @@ class WechatController extends Controller
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
         $users = new Users();
         $openid = $user->getId();
-        $res = $users->where(['openid'=>$openid])->get();
+        $res = $users->where(['openid'=>$openid])->first();
        if(empty($res)) {
            $users->openid = $openid;
            $users->name = $user['name'];
@@ -61,6 +61,7 @@ class WechatController extends Controller
        }else{
            $users = $res;
        }
+       session('user_id',$user->user_id);
        return ['code'=>count($users->toArray()),'data'=>$users->toArray()];
     }
 
