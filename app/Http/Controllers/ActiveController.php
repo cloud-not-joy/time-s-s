@@ -20,7 +20,6 @@ class ActiveController extends Controller
 {
     public function join(){
         $user_id =  session('user_id');//$request->get('user_id');
-        Log::info("user_id:%d",$user_id);
         $user = Users::getOneByWhere(['user_id'=>$user_id]);
         if(empty($user)){
             return ['code'=>0,'msg'=>'用户不存在'];
@@ -91,7 +90,7 @@ class ActiveController extends Controller
     }
 
     public function helpPerson(){
-        dd(session('user_id'));
+        $user_id = session('user_id');
         $where = ['help_to_user_id'=>$user_id];
         HelpLogs::getAllByWhere($where);
         $res = HelpLogs::getFriendsByWhere($where);
