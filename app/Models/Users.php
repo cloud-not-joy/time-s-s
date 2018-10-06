@@ -20,6 +20,7 @@ class Users extends Eloquent\Model
     protected $fillable = [
         'name', 'openid', 'avatar',
     ];
+    protected static $select = ['nickname','avatar'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -28,12 +29,17 @@ class Users extends Eloquent\Model
      */
     protected $hidden = [];
 
+
     public static function getOneByWhere($where){
       return  self::where($where)->first();
     }
 
     public static function getAllByWhere($where,$select){
         return  self::where($where)->select($select)->get();
+    }
+
+    public static function getWinPerson($user_id_arr){
+        return  self::whereIn('user_id',$user_id_arr)->select(self::$select)->get();
     }
 
 

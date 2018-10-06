@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class HelpLogs extends Model
 {
@@ -13,8 +14,9 @@ class HelpLogs extends Model
         return  self::where($where)->first();
     }
 
-    public static function getAllByWhere($where,$page = 1){
-        return  self::where($where)->paginate($page);
+    public static function getAllByWhere($where,$select){
+        return  DB::table('help_logs')->join('users', 'users.user_id', '=', 'help_logs.help_from_user_id')
+            ->where($where)->select($select)->get();
     }
 
     public static function getFriendsByWhere($where,$page = 1){

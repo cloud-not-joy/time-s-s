@@ -29,4 +29,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::any('/join_users', 'ActiveController@joinUsers');
     Route::any('/help', 'ActiveController@help');
     Route::any('/help_person', 'ActiveController@helpPerson');
+
+    Route::any('/open_prize', 'ActiveController@openPrize');
 });
