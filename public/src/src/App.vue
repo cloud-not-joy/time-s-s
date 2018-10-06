@@ -54,7 +54,20 @@ export default {
       } else {
         this.store.winningRate = rate * 100
       }
+      api.userShare({url: window.location.href.split('#')[0]}).then((data) => {
+        const config = JSON.parse(data.data.data)
+        window.wx.config(config)
+      })
       console.log(data.data)
+    })
+    window.wx.ready(() => {
+      window.wx.onMenuShareTimeline({
+        title: '吃货福利，速来',
+        desc: '福利多多，机会多多',
+        link: window.location,
+        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
+      }, (res) => {
+      })
     })
   },
   methods: {
