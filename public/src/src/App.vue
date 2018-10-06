@@ -45,6 +45,15 @@ export default {
   },
   mounted () {
     api.userInfo().then((data) => {
+      data = data.data.data
+      this.store.joinStatus = Number(data.is_join)
+      this.store.inviteCount = Number(data.help_num)
+      const rate = this.store.inviteCount * 0.025 + 0.025
+      if (rate > 1) {
+        this.store.winningRate = 100
+      } else {
+        this.store.winningRate = rate * 100
+      }
       console.log(data.data)
     })
   },
