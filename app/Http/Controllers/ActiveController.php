@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\DB;
 
 class ActiveController extends Controller
 {
-    const MAX_JOIN_PERSON = 0;
     public function userInfo(){
         $user_id =  session('user_id');
         $user = Users::getOneByWhere(['user_id'=>$user_id]);
@@ -30,17 +29,14 @@ class ActiveController extends Controller
         return ['code'=>1, 'data'=>$user];
     }
     public function join(){
-        $user_id =  session('user_id');//$request->get('user_id');
+        $user_id =  session('user_id');
         $user = Users::getOneByWhere(['user_id'=>$user_id]);
-//        if(empty($user)){
-//            return ['code'=>0,'msg'=>'用户不存在'];
-//        }
-//        if(empty($user)) {
-//            return ['code'=>0, 'msg'=>'openid获取失败'];
-//        }
-//        if($user->is_join) {
-//            return ['code'=>1, 'msg'=>'已经参与活动'];
-//        }
+        if(empty($user)){
+            return ['code'=>0,'msg'=>'用户不存在'];
+        }
+        if($user->is_join) {
+            return ['code'=>1, 'msg'=>'已经参与活动'];
+        }
         $user->is_join = 1;//参与
         $join_num = Activity::getOne();
 
@@ -49,18 +45,14 @@ class ActiveController extends Controller
             $join_num->activity_join_num += 1;
             if ($user->save() && $join_num->save()) {
                 DB::commit();
-
-                if(  $join_num->activity_join_num >= self::MAX_JOIN_PERSON ){
+                $max_join_person =env('MAX_JOIN_PERSON');
+                if(  $join_num->activity_join_num >= $max_join_person ){
                     //触发开奖 后台执行
                     $root_path = base_path();
-                    $command = sprintf("php %s/artisan activity:run >> /dev/null 2&1",$root_path);
+                    $command = sprintf("php %s/artisan activity:run >> /dev/null 2>&1",$root_path);
                     exec($command,$output);
                     Log::info("exec output %s",$output);
-                    dd($command);
-
-                    exec($command);
                 }
-
                 return ['code' => 1, 'msg' => '成功参与活动'];
             } else {
                 DB::rollback();
