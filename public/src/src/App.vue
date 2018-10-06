@@ -56,6 +56,7 @@ export default {
       }
       api.userShare({url: window.location.href.split('#')[0]}).then((data) => {
         const config = JSON.parse(data.data.data)
+        console.log(config)
         window.wx.config(config)
       })
       console.log(data.data)
