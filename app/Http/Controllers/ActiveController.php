@@ -53,7 +53,7 @@ class ActiveController extends Controller
     public function help(Request $request){
         $to_user_id = $request->get('to_user_id');
         $from_user_id = $request->get('from_user_id');
-        if(empty($to_user_id) || empty($from_user_id)){
+        if(empty($to_user_id) || empty($from_user_id) || $to_user_id == $from_user_id){
             return ['code'=>0,'msg'=>'参数不能为空'];
         }
         $where = [
@@ -90,6 +90,19 @@ class ActiveController extends Controller
         }
 
     }
+
+    public function helpPerson(Request $request){
+        $user_id = $request->get('user_id');
+        if(empty($user_id)) {
+            return ['code'=>0,'msg'=>'参数不能为空'];
+        }
+        $where = ['help_to_user_id'=>$user_id];
+        HelpLogs::getAllByWhere($where);
+        $res = HelpLogs::getFriendsByWhere($where);
+        dd($res);
+    }
+
+
 
 
 }

@@ -13,4 +13,14 @@ class HelpLogs extends Model
         return  self::where($where)->first();
     }
 
+    public static function getAllByWhere($where,$page = 1){
+        return  self::where($where)->paginate($page);
+    }
+
+    public static function getFriendsByWhere($where,$page = 1){
+        return  self::where($where)
+            ->join('users', 'users.user_id', '=', 'help_logs.help_from_user_id')
+            ->paginate($page);
+    }
+
 }

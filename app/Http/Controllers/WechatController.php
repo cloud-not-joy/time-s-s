@@ -65,10 +65,10 @@ class WechatController extends Controller
     }
 
     public function ticket(Application $wechat,Request $request){
-//        $response = $wechat->oauth->scopes(['snsapi_userinfo'])
-//            ->setRequest($request)
-//            ->redirect();
-//        return $response;
+        $response = $wechat->oauth->scopes(['snsapi_userinfo'])
+            ->setRequest($request)
+            ->redirect();
+        return $response;
         dd(session('wechat.oauth_user'));
         $user = $wechat->oauth->user();
         dd( $user->getToken());
