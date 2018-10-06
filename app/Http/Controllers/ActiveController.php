@@ -18,6 +18,14 @@ use Illuminate\Support\Facades\DB;
 
 class ActiveController extends Controller
 {
+    public function userInfo(){
+        $user_id =  session('user_id');
+        $user = Users::getOneByWhere(['user_id'=>$user_id]);
+        if(empty($user)){
+            return ['code'=>0,'msg'=>'用户不存在'];
+        }
+        return ['code'=>1, 'data'=>$user];
+    }
     public function join(){
         $user_id =  session('user_id');//$request->get('user_id');
         $user = Users::getOneByWhere(['user_id'=>$user_id]);

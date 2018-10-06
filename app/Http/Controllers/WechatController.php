@@ -50,19 +50,19 @@ class WechatController extends Controller
         $users = new Users();
         $openid = $user->getId();
         $res = $users->where(['openid'=>$openid])->first();
-       if(empty($res)) {
-           $users->openid = $openid;
-           $users->name = $user['name'];
-           $users->nickname = $user['nickname'];
-           $users->avatar = $user['avatar'];
-           $users->email = $user['email'];
-           $users->original = json_encode($user['original']);
-           $users->save();
-       }else{
-           $users = $res;
-       }
+        if(empty($res)) {
+            $users->openid = $openid;
+            $users->name = $user['name'];
+            $users->nickname = $user['nickname'];
+            $users->avatar = $user['avatar'];
+            $users->email = $user['email'];
+            $users->original = json_encode($user['original']);
+            $users->save();
+        }else{
+            $users = $res;
+        }
         session(['user_id'=>$users->user_id]);
-       return ['code'=>count($users->toArray()) ? 1:0,'data'=>$users->toArray()];
+        return redirect('dist/index.html');
     }
 
     public function ticket(Application $wechat,Request $request){
