@@ -45,7 +45,30 @@ export default {
   },
   mounted () {
     api.userInfo().then((data) => {
+      data = data.data.data
+      this.store.joinStatus = Number(data.is_join)
+      this.store.inviteCount = Number(data.help_num)
+      const rate = this.store.inviteCount * 0.025 + 0.025
+      if (rate > 1) {
+        this.store.winningRate = 100
+      } else {
+        this.store.winningRate = rate * 100
+      }
+      api.userShare({url: window.location.href.split('#')[0]}).then((data) => {
+        const config = JSON.parse(data.data.data)
+        console.log(config)
+        window.wx.config(config)
+      })
       console.log(data.data)
+    })
+    window.wx.ready(() => {
+      window.wx.onMenuShareTimeline({
+        title: '吃货福利，速来',
+        desc: '福利多多，机会多多',
+        link: window.location,
+        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
+      }, (res) => {
+      })
     })
   },
   methods: {

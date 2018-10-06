@@ -23,8 +23,10 @@ function makePost (url) {
 
 const userInfo = makeGet('/api/user')
 const userJoin = makePost('/api/join')
+const userShare = makeGet('/api/ticket')
 
 export default {
   userInfo,
-  userJoin
+  userJoin,
+  userShare
 }

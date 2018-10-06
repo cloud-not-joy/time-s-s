@@ -62,20 +62,13 @@ class WechatController extends Controller
            $users = $res;
        }
         session(['user_id'=>$users->user_id]);
-       return ['code'=>$users->count() ? 1 : 0,'data'=>$users];
+        return redirect('dist/index.html');
     }
 
     public function ticket(Application $wechat,Request $request){
-        $app = app('wechat');
-       $res =  $app->jssdk->buildConfig(array('onMenuShareQQ', 'onMenuShareWeibo'), true);
-       dd($res);
-        $response = $wechat->oauth->scopes(['snsapi_userinfo'])
-            ->setRequest($request)
-            ->redirect();
-        return $response;
-        dd(session('wechat.oauth_user'));
-        $user = $wechat->oauth->user();
-        dd( $user->getToken());
+        $url = $request->get('url');
+        $wechat->js->setUrl($url);
+        return ['data'=>$wechat->js->config(array('updateAppMessageShareData', 'updateTimelineShareData', 'onMenuShareTimeline', 'onMenuShareAppMessage'), true)];
     }
 
 }
