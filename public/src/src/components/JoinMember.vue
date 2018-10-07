@@ -1,29 +1,22 @@
 <template>
   <div class="JoinMember card">
     <p class="title center">参与活动成员</p>
-    <p class="text">共计xx人参与抽奖，到达400人即可提前开奖</p>
+    <p class="text">共计{{ store.joinedCount }}人参与抽奖，到达400人即可提前开奖</p>
     <ul class="ul">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      <li v-for="(item, index) in store.joinedList" v-bind:key="index">
+        <img :src="item.avatar" />
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import store from '@/store/index.js'
 export default {
   name: 'PrizeJoinMemberInfo',
   data () {
     return {
+      store: store
     }
   }
 }
@@ -50,7 +43,12 @@ export default {
       margin: 2px;
       width: 64px;
       height: 64px;
-      background-color: red;
+
+      img {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+      }
     }
   }
 }

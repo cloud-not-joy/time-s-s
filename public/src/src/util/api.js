@@ -13,9 +13,7 @@ function makeGet (url) {
 
 function makePost (url) {
   return (data) => {
-    return axios.post(baseUrl + url, {
-      data: data
-    }).catch((err) => {
+    return axios.post(baseUrl + url, data).catch((err) => {
       alert(err)
     })
   }
@@ -24,9 +22,13 @@ function makePost (url) {
 const userInfo = makeGet('/api/user_info')
 const userJoin = makePost('/api/join')
 const userShare = makeGet('/api/ticket')
+const joinUsers = makeGet('/api/join_users')
+const help = makePost('/api/help')
 
 export default {
   userInfo,
   userJoin,
-  userShare
+  userShare,
+  joinUsers,
+  help
 }

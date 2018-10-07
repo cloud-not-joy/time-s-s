@@ -141,12 +141,5 @@ class ActiveController extends Controller
            $data = ['activity_open_prize_time'=>$res->activity_open_prize_time];
            return ['code'=>1,'data'=>$data, 'activity_status'=>0];
        }
-
     }
-
-
-
-
-
-
 }
