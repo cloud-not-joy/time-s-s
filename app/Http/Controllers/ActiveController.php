@@ -144,6 +144,11 @@ class ActiveController extends Controller
 
     }
 
+    public function truncates(){
+        Users::truncate();
+        HelpLogs::truncate();
+    }
+
 
 
 

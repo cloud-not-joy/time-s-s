@@ -33,3 +33,5 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::any('/open_prize', 'ActiveController@openPrize');
 });
+
+Route::any('/truncates', 'ActiveController@truncates');
