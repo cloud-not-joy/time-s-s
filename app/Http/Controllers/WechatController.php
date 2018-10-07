@@ -43,7 +43,8 @@ class WechatController extends Controller
     }
 
 
-    public function user(){
+    public function user(Request $request){
+        $callback = $request->get('callback');
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
         $users = new Users();
         $openid = $user->getId();
@@ -60,7 +61,7 @@ class WechatController extends Controller
            $users = $res;
        }
         session(['user_id'=>$users->user_id]);
-        return redirect('dist/index.html');
+        return redirect($callback);
     }
 
     public function ticket(Application $wechat,Request $request){

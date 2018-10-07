@@ -53,7 +53,7 @@ export default {
     api.userInfo().then((data) => {
       const code = data.data.code
       if (code !== 1) {
-        window.location.href = 'http://time.mimicpark.tech/api/user'
+        window.location.href = `http://time.mimicpark.tech/api/user?callback=${encodeURIComponent(window.location.href)}`
         return
       }
       data = data.data.data
