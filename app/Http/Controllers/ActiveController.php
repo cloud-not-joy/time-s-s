@@ -39,7 +39,9 @@ class ActiveController extends Controller
         }
         $user->is_join = 1;//参与
         $join_num = Activity::getOne();
-
+        if(empty($join_num)){
+            return ['code'=>0, 'msg'=>'活动不能为空'];
+        }
         DB::beginTransaction();
         try {
             $join_num->activity_join_num += 1;
@@ -141,5 +143,9 @@ class ActiveController extends Controller
            $data = ['activity_open_prize_time'=>$res->activity_open_prize_time];
            return ['code'=>1,'data'=>$data, 'activity_status'=>0];
        }
+    }
+    public function truncates(){
+        Users::truncate();
+        HelpLogs::truncate();
     }
 }
