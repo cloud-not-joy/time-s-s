@@ -99,6 +99,20 @@ export default {
         imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
       }, (res) => {
       })
+      window.wx.updateAppMessageShareData({
+        title: '你的好友邀请你来抽取吃货福利',
+        desc: '福利多多，机会多多',
+        link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
+        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
+      }, (res) => {
+      })
+      window.wx.updateTimelineShareData({
+        title: '你的好友邀请你来抽取吃货福利',
+        desc: '福利多多，机会多多',
+        link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
+        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
+      }, (res) => {
+      })
     })
   },
   methods: {

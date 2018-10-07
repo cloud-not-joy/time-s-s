@@ -66,7 +66,7 @@ class WechatController extends Controller
     public function ticket(Application $wechat,Request $request){
         $url = $request->get('url');
         $wechat->js->setUrl($url);
-        return ['data'=>$wechat->js->config(array('onMenuShareTimeline', 'onMenuShareAppMessage'), true)];
+        return ['data'=>$wechat->js->config(array('onMenuShareTimeline', 'onMenuShareAppMessage'), false)];
     }
 
 }
