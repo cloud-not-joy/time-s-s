@@ -68,12 +68,6 @@ export default {
       } else {
         this.store.winningRate = rate * 100
       }
-      api.userShare({url: window.location.href.split('#')[0]}).then((data) => {
-        const config = JSON.parse(data.data.data)
-        console.log(config)
-        window.wx.config(config)
-      })
-      console.log(data.data)
     })
     api.joinUsers().then((data) => {
       data = data.data
@@ -84,34 +78,39 @@ export default {
       this.store.joinedList = data.data
       console.log(data)
     })
-    window.wx.ready(() => {
-      window.wx.onMenuShareTimeline({
-        title: '你的好友邀请你来抽取吃货福利',
-        desc: '福利多多，机会多多',
-        link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
-        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
-      }, (res) => {
-      })
-      window.wx.onMenuShareAppMessage({
-        title: '你的好友邀请你来抽取吃货福利',
-        desc: '福利多多，机会多多',
-        link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
-        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
-      }, (res) => {
-      })
-      window.wx.updateAppMessageShareData({
-        title: '你的好友邀请你来抽取吃货福利',
-        desc: '福利多多，机会多多',
-        link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
-        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
-      }, (res) => {
-      })
-      window.wx.updateTimelineShareData({
-        title: '你的好友邀请你来抽取吃货福利',
-        desc: '福利多多，机会多多',
-        link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
-        imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
-      }, (res) => {
+    api.userShare({url: window.location.href.split('#')[0]}).then((data) => {
+      const config = JSON.parse(data.data.data)
+      console.log(config)
+      window.wx.config(config)
+      window.wx.ready(() => {
+        window.wx.onMenuShareTimeline({
+          title: '你的好友邀请你来抽取吃货福利',
+          desc: '福利多多，机会多多',
+          link: `http://time.mimicpark.tech/dist/index.html?nick=${encodeURIComponent(this.store.nick)}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
+          imgUrl: 'http://time.mimicpark.tech/image/timeshare.jpg'
+        }, (res) => {
+        })
+        window.wx.onMenuShareAppMessage({
+          title: '你的好友邀请你来抽取吃货福利',
+          desc: '福利多多，机会多多',
+          link: `http://time.mimicpark.tech/dist/index.html?nick=${encodeURIComponent(this.store.nick)}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
+          imgUrl: 'http://time.mimicpark.tech/image/timeshare.jpg'
+        }, (res) => {
+        })
+        // window.wx.updateAppMessageShareData({
+        //   title: '你的好友邀请你来抽取吃货福利',
+        //   desc: '福利多多，机会多多',
+        //   link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
+        //   imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
+        // }, (res) => {
+        // })
+        // window.wx.updateTimelineShareData({
+        //   title: '你的好友邀请你来抽取吃货福利',
+        //   desc: '福利多多，机会多多',
+        //   link: `http://time.mimicpark.tech/dist/index.html?nick=${this.store.nick}&userid=${this.store.userId}&avatar=${this.store.avatar}`,
+        //   imgUrl: 'http://img0.ph.126.net/t3kXj_tyyoRvUaVB9yCMkQ==/1821987524348614419.jpg'
+        // }, (res) => {
+        // })
       })
     })
   },
